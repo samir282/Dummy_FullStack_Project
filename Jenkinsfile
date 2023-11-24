@@ -38,19 +38,19 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Source') {
-            steps {
-                steps {
-                    git url: GIT_REPO_URL, branch: GIT_BRANCH
-                    // script {
-                    //     // Use GitHub credentials to clone the repository
-                    //     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-                    //         git url: GIT_REPO_URL, branch: GIT_BRANCH, credentialsId: 'github'
-                    //     }
-                    // }
-                }
-            }
-        }
+        // stage('Checkout Source') {
+        //     steps {
+        //         steps {
+        //             git url: GIT_REPO_URL, branch: GIT_BRANCH
+        //             // script {
+        //             //     // Use GitHub credentials to clone the repository
+        //             //     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+        //             //         git url: GIT_REPO_URL, branch: GIT_BRANCH, credentialsId: 'github'
+        //             //     }
+        //             // }
+        //         }
+        //     }
+        // }
         stage('Checkout Source') {
             steps {
                 git url: GIT_REPO_URL, branch: GIT_BRANCH

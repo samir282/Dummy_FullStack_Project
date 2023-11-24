@@ -45,11 +45,22 @@ pipeline {
             }
         }
 
+        // stage('Build Docker Image1') {
+        //     steps {
+        //         script {
+        //             withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+        //                 sh 'docker login -u $DOCKER_USER -p $DOCKER_PASSWORD'
+        //                 sh 'docker build -t your-image-name .'
+        //                 sh 'docker push your-image-name'
+        //             }
+        //         }
+        //     }
+        // }
+        
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Build the Docker image and tag it
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('https://hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         def customImage = docker.build("biswalashu/${IMAGE_NAME}:${BUILD_NUMBER}")
                     }
                 }

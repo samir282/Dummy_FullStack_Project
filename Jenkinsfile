@@ -30,7 +30,7 @@ pipeline {
     environment {
         KUBECONFIG = credentials('kubeconfig1')
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
-        NAMESPACE = 'kasplo-app' // Set your desired namespace
+        NAMESPACE = 'kasplo-app'
         IMAGE_NAME = 'kasplo-frontend'
         GIT_REPO_URL = 'https://github.com/samir282/Dummy_FullStack_Project.git'
         GITHUB_CREDENTIALS = credentials('github')
@@ -40,15 +40,15 @@ pipeline {
     stages {
         stage('Checkout Source') {
             steps {
-                 steps {
-                script {
-                    // Use GitHub credentials to clone the repository
-                    withCredentials([usernamePassword(credentialsId: 'github-credentials-id', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-                        git url: GIT_REPO_URL, branch: GIT_BRANCH, credentialsId: 'github-credentials-id'
+                steps {
+                    script {
+                        // Use GitHub credentials to clone the repository
+                        withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
+                            git url: GIT_REPO_URL, branch: GIT_BRANCH, credentialsId: 'github'
+                        }
                     }
                 }
             }
-        }
         }
 
         stage('Build Docker Image') {

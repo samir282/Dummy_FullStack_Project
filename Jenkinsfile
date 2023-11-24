@@ -38,35 +38,23 @@ pipeline {
     }
 
     stages {
-        // stage('Checkout Source') {
-        //     steps {
-        //         steps {
-        //             git url: GIT_REPO_URL, branch: GIT_BRANCH
-        //             // script {
-        //             //     // Use GitHub credentials to clone the repository
-        //             //     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
-        //             //         git url: GIT_REPO_URL, branch: GIT_BRANCH, credentialsId: 'github'
-        //             //     }
-        //             // }
-        //         }
-        //     }
-        // }
+
         stage('Checkout Source') {
             steps {
                 git url: GIT_REPO_URL, branch: GIT_BRANCH
             }
         }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             // Build the Docker image and tag it
-        //             docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-        //                 def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build the Docker image and tag it
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                        def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
+                    }
+                }
+            }
+        }
 
         // stage('Push Docker Image') {
         //     steps {

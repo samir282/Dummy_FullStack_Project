@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.build("biswalashu/${IMAGE_NAME}:${BUILD_NUMBER}")
+                        def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
                     }
                 }
             }

@@ -49,11 +49,12 @@ pipeline {
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS.username'
                 sh 'echo $DOCKERHUB_CREDENTIALS.password'
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-                    }
-                }
+                sh 'docker build -t $IMAGE_NAME .'
+                // script {
+                //     docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                //         def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
+                //     }
+                // }
             }
         }
 

@@ -33,6 +33,7 @@ pipeline {
         NAMESPACE = 'kasplo-app' // Set your desired namespace
         IMAGE_NAME = 'kasplo-frontend'
         GIT_REPO_URL = 'https://github.com/samir282/Dummy_FullStack_Project.git'
+        GITHUB_CREDENTIALS = credentials('github')
         GIT_BRANCH = 'frontend'
     }
 

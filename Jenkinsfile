@@ -49,24 +49,24 @@ pipeline {
             steps {
                 sh 'echo doneeee'
                 script {
-                    // docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-                    // }
+                    }
                 }
             }
         }
 
-        // stage('Push Docker Image') {
-        //     steps {
-        //         script {
-        //             // Push the Docker image to Docker Hub
-        //             docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-        //                 def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
-        //                 customImage.push()
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Push the Docker image to Docker Hub
+                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                        def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
+                        customImage.push()
+                    }
+                }
+            }
+        }
 
         // stage('Deploy App') {
         //     steps {

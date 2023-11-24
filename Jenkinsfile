@@ -41,7 +41,7 @@ pipeline {
         stage('Checkout Source') {
             steps {
                 steps {
-                    git url: GIT_REPO_URL, branch: GIT_BRANCH,
+                    git url: GIT_REPO_URL, branch: GIT_BRANCH
                     // script {
                     //     // Use GitHub credentials to clone the repository
                     //     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GITHUB_USERNAME', passwordVariable: 'GITHUB_PASSWORD')]) {
@@ -51,42 +51,47 @@ pipeline {
                 }
             }
         }
-
-        stage('Build Docker Image') {
+        stage('Checkout Source') {
             steps {
-                script {
-                    // Build the Docker image and tag it
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-                    }
-                }
+                git url:'https://github.com/justmeandopensource/playjenkins.git', branch:'test-deploy-stage'
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    // Push the Docker image to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
-                        customImage.push()
-                    }
-                }
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //             // Build the Docker image and tag it
+        //             docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+        //                 def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Deploy App') {
-            steps {
-                script {
-                    // Load the Kubernetes configuration from the provided kubeconfig credential
-                    def kubeconfig = credentials('kubeconfig1')
-                    withKubeConfig([credentialsId: 'kubeconfig1', kubeconfigFileVariable: 'KUBECONFIG']) {
-                        // Use Kubernetes specific Groovy commands to deploy the app
-                        kubernetesDeploy(configs: "deployment.yaml")
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             // Push the Docker image to Docker Hub
+        //             docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+        //                 def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
+        //                 customImage.push()
+        //             }
+        //         }
+        //     }
+        // }
+
+        // stage('Deploy App') {
+        //     steps {
+        //         script {
+        //             // Load the Kubernetes configuration from the provided kubeconfig credential
+        //             def kubeconfig = credentials('kubeconfig1')
+        //             withKubeConfig([credentialsId: 'kubeconfig1', kubeconfigFileVariable: 'KUBECONFIG']) {
+        //                 // Use Kubernetes specific Groovy commands to deploy the app
+        //                 kubernetesDeploy(configs: "deployment.yaml")
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
 

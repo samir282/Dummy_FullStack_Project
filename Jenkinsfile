@@ -47,7 +47,7 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                sh 'echo doneeee'
+                sh 'echo $DOCKERHUB_CREDENTIALS'
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")

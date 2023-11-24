@@ -56,15 +56,15 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        docker.image("${IMAGE_NAME}:${TAG}").push()
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+        //                 docker.image("${IMAGE_NAME}:${TAG}").push()
+        //             }
+        //         }
+        //     }
+        // }
 
         // stage('Deploy App') {
         //     steps {

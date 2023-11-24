@@ -29,7 +29,8 @@ pipeline {
 
     environment {
         KUBECONFIG = credentials('kubeconfig1')
-        DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
+        DOCKERHUB_USERNAME = credentials('docker-hub-credentials').username
+        DOCKERHUB_PASSWORD = credentials('docker-hub-credentials').password
         NAMESPACE = 'kasplo-app'
         IMAGE_NAME = 'biswalashu/kasplo-frontend'
         GIT_REPO_URL = 'https://github.com/samir282/Dummy_FullStack_Project.git'
@@ -49,9 +50,7 @@ pipeline {
             steps {
                 sh 'echo doneeee'
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-                    }
+                    docker.build("${IMAGE_NAME}:${TAG}", "-t ${IMAGE_NAME}:${TAG} .")
                 }
             }
         }
@@ -59,10 +58,8 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    // Push the Docker image to Docker Hub
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
-                        customImage.push()
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        docker.image("${IMAGE_NAME}:${TAG}").push()
                     }
                 }
             }

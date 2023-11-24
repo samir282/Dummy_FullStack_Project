@@ -31,7 +31,7 @@ pipeline {
         KUBECONFIG = credentials('kubeconfig1')
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-credentials')
         NAMESPACE = 'kasplo-app'
-        IMAGE_NAME = 'kasplo-frontend'
+        IMAGE_NAME = 'biswalashu/kasplo-frontend'
         GIT_REPO_URL = 'https://github.com/samir282/Dummy_FullStack_Project.git'
         GITHUB_CREDENTIALS = credentials('github')
         GIT_BRANCH = 'frontend'

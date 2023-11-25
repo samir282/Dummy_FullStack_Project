@@ -40,9 +40,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                    // docker.withRegistry('https://registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-                    }
+                    // }
                 }
             }
         }

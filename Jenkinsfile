@@ -63,7 +63,7 @@ pipeline {
                     // }
 
                     kubeconfig(credentialsId: 'kubeconfig', serverUrl: '') {
-                        kubernetesDeploy(configs: "deployment.yaml")
+                        sh "kubectl apply -f deployment.yaml"
                     }
                 }
             }

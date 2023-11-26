@@ -62,6 +62,7 @@ pipeline {
                     withKubeConfig([credentialsId: 'kubeconfig']) {  //, kubeconfigFileVariable: 'KUBECONFIG'
                         // Use Kubernetes specific Groovy commands to deploy the app
                         // kubernetesDeploy(configs: "deployment.yaml")
+                        sh 'kubectl get pods'
                         echo "this is working till this"
                     }
                 }

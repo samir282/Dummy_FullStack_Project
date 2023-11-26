@@ -63,7 +63,7 @@ pipeline {
                     // }
 
                     kubeconfig(credentialsId: 'kubeconfig', serverUrl: '') {
-                        sh "kubectl apply -f deployment.yaml"
+                        sh "kubectl set image deployment/nginx-deployment nginx=biswalashu/kasplo-frontend:${BUILD_NUMBER} --record"
                     }
                 }
             }

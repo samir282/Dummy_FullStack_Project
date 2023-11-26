@@ -54,17 +54,17 @@ pipeline {
             }
         }
 
-        // stage('Deploy App') {
-        //     steps {
-        //         script {
-        //             // Load the Kubernetes configuration from the provided kubeconfig credential
-        //             def kubeconfig = credentials('kubeconfig1')
-        //             withKubeConfig([credentialsId: 'kubeconfig1', kubeconfigFileVariable: 'KUBECONFIG']) {
-        //                 // Use Kubernetes specific Groovy commands to deploy the app
-        //                 kubernetesDeploy(configs: "deployment.yaml")
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Deploy App') {
+            steps {
+                script {
+                    // Load the Kubernetes configuration from the provided kubeconfig credential
+                    def kubeconfig = credentials('kubeconfig')
+                    withKubeConfig([credentialsId: 'kubeconfig', kubeconfigFileVariable: 'KUBECONFIG']) {
+                        // Use Kubernetes specific Groovy commands to deploy the app
+                        kubernetesDeploy(configs: "deployment.yaml")
+                    }
+                }
+            }
+        }
     }
 }

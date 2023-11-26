@@ -57,11 +57,6 @@ pipeline {
         stage('Deploy App') {
             steps {
                 script {
-                    // def kubeconfig = credentials('kubeconfig')
-                    // withKubeConfig([credentialsId: 'kubeconfig', kubeconfigFileVariable: 'KUBECONFIG']) {
-                    //     kubernetesDeploy(configs: "deployment.yaml")
-                    // }
-
                     kubeconfig(credentialsId: 'kubeconfig', serverUrl: '') {
                         sh "kubectl set image deployment/nginx-deployment nginx=biswalashu/kasplo-frontend:${BUILD_NUMBER} --record"
                     }

@@ -21,7 +21,7 @@ pipeline {
 
     environment {
         KUBECONFIG = credentials('kubeconfig')
-        DOCKERHUB_CREDENTIALS = credentials('dhub')
+        DOCKERHUB_CREDENTIALS ='biswalashu:ghostProtocol1' //credentials('dhub')
         NAMESPACE = 'kasplo-app'
         IMAGE_NAME = 'biswalashu/kasplo-frontend'
         GIT_REPO_URL = 'https://github.com/samir282/Dummy_FullStack_Project.git'

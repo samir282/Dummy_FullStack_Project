@@ -57,13 +57,13 @@ pipeline {
         stage('Deploy App') {
             steps {
                 script {
-                    // Load the Kubernetes configuration from the provided kubeconfig credential
                     // def kubeconfig = credentials('kubeconfig')
-                    withKubeConfig([credentialsId: 'kubeconfig']) {  //, kubeconfigFileVariable: 'KUBECONFIG'
-                        // Use Kubernetes specific Groovy commands to deploy the app
-                        // kubernetesDeploy(configs: "deployment.yaml")
-                        sh 'kubectl get pods'
-                        echo "this is working till this"
+                    // withKubeConfig([credentialsId: 'kubeconfig', kubeconfigFileVariable: 'KUBECONFIG']) {
+                    //     kubernetesDeploy(configs: "deployment.yaml")
+                    // }
+
+                    kubeconfig(credentialsId: 'kubeconfig', serverUrl: '') {
+                        kubernetesDeploy(configs: "deployment.yaml")
                     }
                 }
             }

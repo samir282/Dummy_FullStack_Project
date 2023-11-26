@@ -21,7 +21,7 @@ pipeline {
 
     environment {
         KUBECONFIG = credentials('kubeconfig')
-        DOCKERHUB_CREDENTIALS ='biswalashu/ghostProtocol1' //credentials('dhub')
+        DOCKERHUB_CREDENTIALS = credentials('dhub')
         NAMESPACE = 'kasplo-app'
         IMAGE_NAME = 'biswalashu/kasplo-frontend'
         GIT_REPO_URL = 'https://github.com/samir282/Dummy_FullStack_Project.git'
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub
-                    docker.withRegistry('registry.hub.docker.com', DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('hub.docker.com', DOCKERHUB_CREDENTIALS) {
                         def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
                         customImage.push()
                     }

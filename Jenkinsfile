@@ -37,22 +37,24 @@ pipeline {
             }
         }
         
-        stage('Build Docker Image') {
-            steps {
-                script {
-                        def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
-                }
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         script {
+        //                 def customImage = docker.build("${IMAGE_NAME}:${BUILD_NUMBER}")
+        //         }
+        //     }
+        // }
 
         stage('Push Docker Image') {
             steps {
                 script {
+                    sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
+                    sh 'docker push ${IMAGE_NAME}:${BUILD_NUMBER}'
                     // Push the Docker image to Docker Hub
-                    docker.withRegistry('',DOCKERHUB_CREDENTIALS) {
-                        def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
-                        customImage.push()
-                    }
+                    // docker.withRegistry('',DOCKERHUB_CREDENTIALS) {
+                    //     def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
+                    //     customImage.push()
+                    // }
                 }
             }
         }
@@ -71,4 +73,3 @@ pipeline {
         // }
     }
 }
-

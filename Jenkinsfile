@@ -61,7 +61,8 @@ pipeline {
                     // def kubeconfig = credentials('kubeconfig')
                     withKubeConfig([credentialsId: 'kubeconfig']) {  //, kubeconfigFileVariable: 'KUBECONFIG'
                         // Use Kubernetes specific Groovy commands to deploy the app
-                        kubernetesDeploy(configs: "deployment.yaml")
+                        // kubernetesDeploy(configs: "deployment.yaml")
+                        echo "this is working till this"
                     }
                 }
             }

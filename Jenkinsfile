@@ -49,7 +49,7 @@ pipeline {
             steps {
                 script {
                     // Push the Docker image to Docker Hub
-                    docker.withRegistry(DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry('',DOCKERHUB_CREDENTIALS) {
                         def customImage = docker.image("${IMAGE_NAME}:${BUILD_NUMBER}")
                         customImage.push()
                     }

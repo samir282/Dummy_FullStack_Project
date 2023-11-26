@@ -11,10 +11,11 @@ spec:
     metadata:
       labels:
         app: nginx
+        version: ${BUILD_NUMBER}
     spec:
       containers:
       - name: nginx
-        image: nginx:alpine
+        image: biswalashu/kasplo-frontend:${BUILD_NUMBER}
         ports:
         - containerPort: 80
         resources:
